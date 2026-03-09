@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>舍我棋谁</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== 设置屏幕 ========== -->
+  <div id="setup-screen" class="screen active">
+    <h1 class="game-title">舍我棋谁</h1>
+    <p class="game-subtitle">棋逢对手，舍我棋谁！</p>
+    <div class="setup-container">
+      <!-- 玩家1设置 -->
+      <div class="player-setup-card" data-player="0">
+        <h2>玩家 1</h2>
+        <div class="avatar-preview" id="avatar-preview-0">?</div>
+        <div class="avatar-options">
+          <label class="upload-btn">
+            上传头像
+            <input type="file" accept="image/*" class="file-input" data-player="0" hidden>
+          </label>
+          <p class="or-divider">或选择预设头像</p>
+          <div class="emoji-grid" id="emoji-grid-0"></div>
+        </div>
+        <input type="text" class="name-input" id="name-input-0" placeholder="定制昵称（2-10字符）" maxlength="10">
+      </div>
+
+      <!-- VS -->
+      <div class="vs-divider">VS</div>
+
+      <!-- 玩家2设置 -->
+      <div class="player-setup-card" data-player="1">
+        <h2>玩家 2</h2>
+        <div class="avatar-preview" id="avatar-preview-1">?</div>
+        <div class="avatar-options">
+          <label class="upload-btn">
+            上传头像
+            <input type="file" accept="image/*" class="file-input" data-player="1" hidden>
+          </label>
+          <p class="or-divider">或选择预设头像</p>
+          <div class="emoji-grid" id="emoji-grid-1"></div>
+        </div>
+        <input type="text" class="name-input" id="name-input-1" placeholder="定制昵称（2-10字符）" maxlength="10">
+      </div>
+    </div>
+    <button id="start-btn" class="btn-primary" disabled>开始游戏</button>
+    
+    <!-- 游戏介绍 -->
+    <div class="game-intro">
+      <h3>游戏介绍</h3>
+      <p>1.游戏准备：本游戏为双人对战。进入游戏后，两位玩家需设置头像和昵称，并在棋盘宫格中选择各自的初始位置。</p>
+      <p>2.扩展规则：在自己的回合点击头像，头像会向上、下、左、右四个相邻格子进行复制扩展，占领新的格子。</p>
+      <p>3.冲突规则：当双方头像在同一格子重叠时，该格子会爆炸并重置为空地，双方需在之后的回合重新争夺该区域。</p>
+      <p>4.弹坑机制：同一格子爆炸三次后会变为弹坑，该位置将无法被任何玩家占领。</p>
+      <p>5.结束与胜利：当棋盘除弹坑外的区域被占满，或某一玩家无法继续操作时游戏结束；占据格子数量最多的玩家获胜。</p>
+    </div>
+  </div>
+
+  <!-- ========== 游戏屏幕 ========== -->
+  <div id="game-screen" class="screen">
+    <!-- 顶部信息栏 -->
+    <div class="game-header">
+      <div class="player-info player-info-left" id="player-info-0">
+        <div class="player-avatar-small" id="header-avatar-0"></div>
+        <div class="player-details">
+          <span class="player-name" id="header-name-0"></span>
+          <span class="player-score" id="header-score-0">1</span>
+        </div>
+      </div>
+
+      <div class="timer-section">
+        <div class="turn-indicator" id="turn-indicator"></div>
+        <div class="timer-bar-container">
+          <div class="timer-bar" id="timer-bar"></div>
+        </div>
+        <div class="timer-text" id="timer-text">10.0</div>
+      </div>
+
+      <div class="player-info player-info-right" id="player-info-1">
+        <div class="player-details">
+          <span class="player-name" id="header-name-1"></span>
+          <span class="player-score" id="header-score-1">1</span>
+        </div>
+        <div class="player-avatar-small" id="header-avatar-1"></div>
+      </div>
+    </div>
+
+    <!-- 游戏网格 -->
+    <div class="grid-wrapper">
+      <div id="grid" class="grid"></div>
+    </div>
+  </div>
+
+  <!-- ========== 结果屏幕 ========== -->
+  <div id="result-screen" class="screen">
+    <canvas id="fireworks-canvas"></canvas>
+    <div class="result-content">
+      <h1 class="result-title" id="result-title"></h1>
+      <p class="result-score" id="result-score"></p>
+      <div class="result-avatars">
+        <div class="result-avatar winner-avatar" id="winner-avatar"></div>
+        <div class="bonk-effect" id="bonk-effect"></div>
+        <div class="result-avatar loser-avatar" id="loser-avatar"></div>
+      </div>
+      <button id="restart-btn" class="btn-primary">再来一局</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
